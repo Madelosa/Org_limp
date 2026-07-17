@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- titulo e favicon - definir o ícone da aba do navegador-->
+    <title>Org-limp</title>
+    <link rel="shortcut icon" href="./img/logo2.png" type="image/x-icon">
+    <!--BOOTSTRAP - CSS-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <!-- ICONS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css" />
+
+
+    <style>
+        #main-nav {
+            width: 250px;
+        }
+    </style>
+
+
+</head>
+
+
+
+<body>
+    <!--Seção superior-->
+    <!--seção da logo-->
+    <header class="bg-info d-flex justify-content-between align-items-center px-2 py-1">
+        <h1>
+            <img src="./img/log.png" class="img-fluid" width=110px height=100px alt="Logo da empresa" />
+        </h1>
+        <div>
+            <!--Notificações-->
+            <div class="d-none d-md-block">
+                <button type="button" class="btn position-relative bg-transparent border-0 p-0">
+                    <!-- Ícone do Sino  -->
+                    <i class="bi bi-bell-fill"></i>
+                    <!-- Tag do contador de notificações (Badge) -->
+                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-3 bg-light text-primary border border-primary-subtle px-0 py-0
+                       class=" btn btn-link dropdown-toggle type="button" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        4
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">Abrir Notificações</a></li>
+                        </ul>
+                    </span>
+                </button>
+                <!--Perfil do usuário-->
+                <span>Gerente</espan>
+                    <span>
+                        <button class="btn btn-link dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                            aria-expanded="false"></button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">Sair</a></li>
+                        </ul>
+                    </span>
+            </div>
+            <!--Botão que abre um painel lateral deslizante.  -->
+            <button class="btn btn-outline-primary d-md-none" data-bs-toggle="offcanvas" data-bs-target="#main-menu">
+                <i class="bi bi-list"></i>
+            </button>
+        </div>
+</header>
+    <!--Seção lateral-->
+    <div class="d-flex">
+        <div class="offcanvas-md" id="main-menu">
+            <div class="offcanvas-header"></div>
+            <div class="offcanvas-body">
+                <nav id="main-nav" class="bg-dark vh-100 px-4 py-4">
+                    <ul class="nav nav-pills flex-column">
+                        <li class="nav-item d-block py-2 mb-2">
+                            <a href="gerente_index.html"
+                                class="nav-link text-white active text-start d-flex align-items-center px-3 py-2 w-100">
+                                <i class="bi bi-house-door-fill me-3"></i>
+                                <span> Página Inicial</span>
+                            </a>
+                        </li>
+
+                        <li class="nav-item" d-block py-2 mb-2>
+                            <a href="#"
+                                class="nav-link text-white btn btn-outline-primary text-start d-flex align-items-center px-3 py-2 w-100">
+                                <i class="bi bi-calendar-check me-3"></i>
+                                <span>Plano Semanal</span>
+                            </a>
+                        </li>
+
+                        <li class="nav-item d-block py-2" mb-2>
+                            <a href="gerente_tarefas.html"
+                                class="nav-link text-white btn btn-outline-primary text-start d-flex align-items-center px-3 py-2 w-100">
+
+                                <i class="bi bi-pencil-square me-3"></i>
+                                <span>Tarefas</span>
+                            </a>
+                        </li>
+
+                        <li class="nav-item d-block py-2 mb-2">
+                            <a href="#"
+                                class="nav-link text-white btn btn-outline-primary text-start d-flex align-items-center px-3 py-2 w-100">
+                                <i class="bi bi-clipboard2-data me-3"></i>
+                                <span>Relatórios</span>
+                            </a>
+                        </li>
+
+                        <li class="nav-item d-block py-2" mb-2>
+                            <a href="#"
+                                class="nav-link text-white btn btn-outline-primary text-start d-flex align-items-center px-3 py-2 w-100">
+                                <i class="bi bi-bell-fill me-3"></i>
+                                <span>Notificações</span>
+                            </a>
+                        </li>
+
+                        <li class="nav-item d-block py-2 mb-2">
+                            <a href="login.html"
+                                class="nav-link text-white btn btn-outline-primary text-start d-flex align-items-center px-3 py-2 w-100">
+                                <i class="bi bi-people-fill me-3"></i>
+                                <span>Usuários</span>
+                            </a>
+                        </li>
+
+                        <li class="nav-item d-block py-2 mb-2">
+                            <a href="#"
+                                class="nav-link text-white btn btn-outline-primary text-start d-flex align-items-center px-3 py-2 w-100">
+                                <i class="bi bi-gear me-3"></i>
+                                <span>Configurações</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+
+        <main class="p-3 vh-100 w-100">
+            <h2 class="border-bottom display-6 pb-2 fw-medium mb-1">
+                Página Inicial
+            </h2>
+            <p>Seja bem-vindo!</p>
+
+            <!-- Status tarefas -->
+            <div class="row">
+
+                <!-- Pendentes -->
+
+                <div class="col-6 col-xl-3">
+                    <a href="#"
+                        class=" btn btn-outline-primary p-3 d-flex justify-content-between align-items-start d-block py-3 mb-2">
+                        <div>
+                            <h2 class="fw-bold mb-2">15</h2>
+                            <h6 class="fw-bold mb-2">Tarefas Pendentes</h6>
+                           
+                        </div>
+                        <div>
+                            <i class="bi bi-exclamation-triangle fs-3 display-4"></i>
+                        </div>
+                    </a>
+                </div>
+
+
+                <!-- Iniciadas -->
+
+                <div class="col-6 col-xl-3">
+                    <a href="#"
+                        class=" btn btn-outline-primary d-flex justify-content-between align-items-start d-block py-3 mb-2">
+                        <div>
+                            <h2 class="fw-bold mb-2">08</h2>
+                            <h6 class="fw-bold mb-2">Tarefas Iniciadas</h6>
+                            
+                        </div>
+                        <div>
+                            <i class="bi bi-clock-history fs-3 display-5"></i>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Em Andamento -->
+
+                <div class="col-6 col-xl-3">
+                    <a href="#"
+                        class=" btn btn-outline-primary d-flex justify-content-between align-items-start d-block py-3 mb-2">
+                        <div>
+                            <h2 class="fw-bold mb-2">03</h2>
+                            <h6 class="fw-bold mb-2">Em andamento</h6>
+                            
+                        </div>
+                        <div>
+                            <i class="bi bi-check2 fs-3 display-5"></i>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Concluídas -->
+
+                <div class="col-6 col-xl-3">
+                    <a href="#"
+                        class=" btn btn-outline-primary d-flex justify-content-between align-items-start d-block py-3 mb-2">
+                        <div>
+                            <h2 class="fw-bold mb-2">120</h2>
+                            <h6 class="fw-bold mb-2">Concluídas</h6>
+                            
+                        </div>
+                        <div>
+                            <i class="bi bi-check2-square fs-3 display-5"></i>
+                        </div>
+                    </a>
+                </div>
+
+            
+            
+        </main>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
