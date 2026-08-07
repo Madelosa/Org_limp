@@ -113,7 +113,7 @@
                         </li>
 
                         <li class="nav-item d-block py-2 mb-2">
-                            <a href="usuarios.html"
+                            <a href="#"
                                 class="nav-link text-white btn btn-outline-primary text-start d-flex align-items-center px-3 py-2 w-100">
                                 <i class="bi bi-people-fill me-3"></i>
                                 <span>Usuários</span>
@@ -132,25 +132,285 @@
             </div>
         </div>
 
+        <main class="p-3 vh-100 w-100">
+            <div class="col-md-10">
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    Novo Usuário
+                </button>
+                <br>
+                <br>
+              
 
-        <!--De aqui pra frente-->
+            <!-- Escrever o seu código de aqui pra frente -->
+         <!-- PESQUISA -->
+
+<div class="card shadow-sm mb-4">
+
+<div class="card-body">
+
+<div class="row">
+
+<div class="col-md-8">
+
+<input
+type="text"
+class="form-control"
+placeholder="Pesquisar usuário...">
+
+</div>
+
+<div class="col-md-4">
+
+<button class="btn btn-success w-100">
+
+Pesquisar
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- TABELA -->
+
+<div class="card shadow">
+
+<div class="card-body">
+
+<table class="table table-hover align-middle">
+
+<thead class="table-primary">
+
+<tr>
+
+<th>ID</th>
+
+<th>Nome</th>
+
+<th>Email</th>
+
+<th>Perfil</th>
+
+<th>Status</th>
+
+<th>Ações</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+<tr>
+
+<td>001</td>
+
+<td>João Silva</td>
+
+<td>joao@email.com</td>
+
+<td>
+
+<span class="badge bg-primary">
+
+Supervisor
+
+</span>
+
+</td>
+
+<td>
+
+<span class="badge bg-success">
+
+Ativo
+
+</span>
+
+</td>
+
+<td>
+
+<button class="btn btn-warning btn-sm">
+
+<i class="bi bi-pencil-fill"></i>
+
+</button>
+
+<button class="btn btn-danger btn-sm">
+
+<i class="bi bi-trash-fill"></i>
+
+</button>
+
+</td>
+
+</tr>
+
+<tr>
+
+<td>002</td>
+
+<td>Maria Souza</td>
+
+<td>maria@email.com</td>
+
+<td>
+
+<span class="badge bg-dark">
+
+Gerente
+
+</span>
+
+</td>
+
+<td>
+
+<span class="badge bg-success">
+
+Ativo
+
+</span>
+
+</td>
+
+<td>
+
+<button class="btn btn-warning btn-sm">
+
+<i class="bi bi-pencil-fill"></i>
+
+</button>
+
+<button class="btn btn-danger btn-sm">
+
+<i class="bi bi-trash-fill"></i>
+
+</button>
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+   
 
 
 
 
 
 
+            
+        </main>
+    </div>
 
 
 
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Usuários</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="card">
+                    
+
+                    <div class="card-header">
+                        <h4>Cadastro de Usuários</h4>
+                    </div>
+
+                    <div class="card-body">
+
+                        <div class="row">
+
+                             <div class="col-md-6">
+                                <label>Id</label>
+                                <input type="text" class="form-control">
+                            </div>
+
+                            <div class="col-md-6">
+                                <label>Nome</label>
+                                <input type="text" class="form-control">
+                            </div>
+
+                            <div class="col-md-6">
+                                <label>E-mail</label>
+                                <input type="email" class="form-control">
+                            </div>
+
+                        </div>
+
+                        <br>
+
+                        <div class="row">
+
+                            <div class="col-md-4">
+                                <label>Perfil</label>
+
+                                <select class="form-select">
+                                    <option>Gerente</option>
+                                    <option>Supervisor</option>
+                                </select>
+
+                            </div>
+
+                            <div class="col-md-4">
+                                <label>Status</label>
+
+                                <select class="form-select">
+                                    <option>Ativo</option>
+                                    <option>Inativo</option>
+                                </select>
+
+                            </div>
+
+                        </div>
+
+                        <br>
 
 
+                        <div class="btn-area">
 
+                            <button class="btn btn-secondary">
+                                Cancelar
+                            </button>
 
+                            <button class="btn btn-primary">
+                                Salvar
+                            </button>
 
-     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Salvar</button>
+            </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
         crossorigin="anonymous"></script>
 </body>
 
-</html>    
+</html>
