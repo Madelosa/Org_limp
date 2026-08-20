@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="br">
 
 <head>
     <meta charset="UTF-8">
@@ -65,7 +65,7 @@
         </div>
 </header>
     <!--Seção lateral-->
-    <div class="d-flex">
+    <div class="d-flex ">
         <div class="offcanvas-md" id="main-menu">
             <div class="offcanvas-header"></div>
             <div class="offcanvas-body">
@@ -134,18 +134,250 @@
 
 
         <!--De aqui pra frente-->
+ 
+
+ <main class="p-3 vh-100 w-100">
+     <div class="container bg-white shadow-sm p-4 rounded">
+    <h2>
+
+<i class="bi bi-clipboard2-data-fill text-primary"></i>
+
+Relatórios
+
+</h2>
+
+<hr>
+
+           
+            <!--filtros-->
+
+<div class="card mt-4">
+
+<div class="card-body">
+
+<div class="row">
+
+<div class="col-md-2">
+
+<label>Data Inicial</label>
+
+<input
+type="date"
+id="inicio"
+class="form-control">
+
+</div>
+
+<div class="col-md-2">
+
+<label>Data Final</label>
+
+<input
+type="date"
+id="fim"
+class="form-control">
+
+</div>
+
+<div class="col-md-2">
+
+<label>Supervisor</label>
+
+<select
+id="supervisor"
+class="form-select">
+
+<option>Todos</option>
+
+<option>Supervisor 1</option>
+
+<option>Supervisor 2</option>
+
+<option>Supervisor 3</option>
+</select>
+
+</div>
+
+<div class="col-md-3">
+
+<label>Status</label>
+
+<select
+id="status"
+class="form-select">
+
+<option>Todos</option>
+
+<option>Pendente</option>
+
+<option>Iniciada</option>
+
+<option>Em andamento</option>
+
+<option>Concluída</option>
+
+</select>
+
+</div>
+
+<div class="col-md-3 p-4 d-flex align-items-end">
+
+<button class="btn btn-primary">Filtrar</button>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+<br>
+     <!-- Status tarefas -->
+            <div class="row">
+
+                <!-- Pendentes -->
+
+                <div class="col-6 col-xl-3">
+                    <a href="#"
+                        class=" btn btn-outline-primary p-3 d-flex justify-content-between align-items-start d-block py-3 mb-2">
+                        <div>
+                            <h2 class="fw-bold mb-2">15</h2>
+                            <h6 class="fw-bold mb-2">Tarefas Pendentes</h6>
+                           
+                        </div>
+                        <div>
+                            <i class="bi bi-exclamation-triangle fs-3 display-4"></i>
+                        </div>
+                    </a>
+                </div>
 
 
+                <!-- Iniciadas -->
 
+                <div class="col-6 col-xl-3">
+                    <a href="#"
+                        class=" btn btn-outline-primary d-flex justify-content-between align-items-start d-block py-3 mb-2">
+                        <div>
+                            <h2 class="fw-bold mb-2">08</h2>
+                            <h6 class="fw-bold mb-2">Tarefas Iniciadas</h6>
+                            
+                        </div>
+                        <div>
+                            <i class="bi bi-clock-history fs-3 display-5"></i>
+                        </div>
+                    </a>
+                </div>
 
+                <!-- Em Andamento -->
 
+                <div class="col-6 col-xl-3">
+                    <a href="#"
+                        class=" btn btn-outline-primary d-flex justify-content-between align-items-start d-block py-3 mb-2">
+                        <div>
+                            <h2 class="fw-bold mb-2">03</h2>
+                            <h6 class="fw-bold mb-2">Em andamento</h6>
+                            
+                        </div>
+                        <div>
+                            <i class="bi bi-check2 fs-3 display-5"></i>
+                        </div>
+                    </a>
+                </div>
 
+                <!-- Concluídas -->
 
+                <div class="col-6 col-xl-3">
+                    <a href="#"
+                        class=" btn btn-outline-primary d-flex justify-content-between align-items-start d-block py-3 mb-2">
+                        <div>
+                            <h2 class="fw-bold mb-2">120</h2>
+                            <h6 class="fw-bold mb-2">Concluídas</h6>
+                            
+                        </div>
+                        <div>
+                            <i class="bi bi-check2-square fs-3 display-5"></i>
+                        </div>
+                    </a>
+                </div>
+    <!-- graficos -->
 
+    <div class="row mt-5">
 
+<div class="col-lg-6">
 
+<div class="card">
 
+<div class="card-header">
 
+Status das Tarefas
+
+</div>
+
+<div class="card-body">
+
+<canvas id="graficoStatus"></canvas>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="col-lg-6">
+
+<div class="card">
+
+<div class="card-header">
+
+Produtividade
+
+</div>
+
+<div class="card-body">
+
+<canvas id="graficoSupervisor"></canvas>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!--butões-->
+<div class="mt-4">
+
+<button
+class="btn btn-danger">
+
+<i class="bi bi-file-earmark-pdf"></i>
+
+PDF
+
+</button>
+
+<button
+class="btn btn-success">
+
+<i class="bi bi-file-earmark-excel"></i>
+
+Excel
+
+</button>
+
+<button
+class="btn btn-primary">
+
+<i class="bi bi-printer"></i>
+
+Imprimir
+
+</button>
+
+</div>
+ </main>
+       
 
 
      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
