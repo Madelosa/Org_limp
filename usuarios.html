@@ -113,7 +113,7 @@
                         </li>
 
                         <li class="nav-item d-block py-2 mb-2">
-                            <a href="#"
+                            <a href="usuarios.html"
                                 class="nav-link text-white btn btn-outline-primary text-start d-flex align-items-center px-3 py-2 w-100">
                                 <i class="bi bi-people-fill me-3"></i>
                                 <span>Usuários</span>
@@ -133,17 +133,32 @@
         </div>
 
         <main class="p-3 vh-100 w-100">
-            <div class="col-md-10">
-                <!-- Button trigger modal -->
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                    Novo Usuário
-                </button>
-                <br>
-                <br>
-              
+            <div class="container bg-white shadow-sm p-4 rounded">
+    <h2>
 
-            <!-- Escrever o seu código de aqui pra frente -->
-         <!-- PESQUISA -->
+<i class="bi bi-people-fill text-primary"></i>
+
+Usuários
+
+</h2>
+<hr>
+
+<div class="container mt-4">
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+
+<h5>Usuários</h5>
+
+<button class="btn btn-primary" type="button" class="nav-link" data-bs-toggle="modal" data-bs-target="#exampleModal">
+     <i class="bi bi-person-plus-fill"></i>   
+
+Novo Usuário
+
+</button>
+
+</div>
+
+<!-- PESQUISA -->
 
 <div class="card shadow-sm mb-4">
 
@@ -305,112 +320,126 @@ Ativo
 </div>
 
 </div>
-   
-
-
-
-
-
-
-            
-        </main>
-    </div>
-
-
-
-    <!-- Modal -->
+<!-- Modal Perfil-->
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalLabel">Usuários</h1>
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Novo Usuário</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <div class="card">
                     
 
-                    <div class="card-header">
-                        <h4>Cadastro de Usuários</h4>
-                    </div>
+                   <div class="tab-pane fade show active" id="perfil">
 
-                    <div class="card-body">
+<div class="card">
 
-                        <div class="row">
+<div class="card-body">
 
-                             <div class="col-md-6">
-                                <label>Id</label>
-                                <input type="text" class="form-control">
-                            </div>
+<div class="row">
 
-                            <div class="col-md-6">
-                                <label>Nome</label>
-                                <input type="text" class="form-control">
-                            </div>
+<div class="col-md-3 text-center">
 
-                            <div class="col-md-6">
-                                <label>E-mail</label>
-                                <input type="email" class="form-control">
-                            </div>
+<img
+src="img/avatar.png"
+class="img-fluid rounded-circle mb-3"
+width="150">
 
-                        </div>
+<input
+type="file"
+class="form-control">
 
-                        <br>
+</div>
 
-                        <div class="row">
+<div class="col-md-9">
 
-                            <div class="col-md-4">
-                                <label>Perfil</label>
+<div class="mb-3">
 
-                                <select class="form-select">
-                                    <option>Gerente</option>
-                                    <option>Supervisor</option>
-                                </select>
+<label>Nome</label>
 
-                            </div>
+<input
+type="text"
+class="form-control"
+value="Digite o nome do usuário">
 
-                            <div class="col-md-4">
-                                <label>Status</label>
+</div>
 
-                                <select class="form-select">
-                                    <option>Ativo</option>
-                                    <option>Inativo</option>
-                                </select>
+<div class="col-md-9">
 
-                            </div>
+<div class="mb-3">
 
-                        </div>
+<label>Perfil</label>
+<select class="form-select">
 
-                        <br>
+<option>Gerente</option>
+
+<option>Supervisor</option>
+
+</select>
 
 
-                        <div class="btn-area">
+</div>
 
-                            <button class="btn btn-secondary">
-                                Cancelar
-                            </button>
+<div class="col-md-9">
 
-                            <button class="btn btn-primary">
-                                Salvar
-                            </button>
+<div class="mb-3">
 
-                        </div>
+<label>Status</label>
 
-                    </div>
+<select class="form-select">
 
-                </div>
-            </div>
+<option>Activo</option>
+
+<option>Inactivo</option>
+
+</select>
+
+
+
+</div>
+<div class="mb-3">
+
+<label>E-mail</label>
+
+<input
+type="email"
+class="form-control"
+value="gerente@email.com">
+
+</div>
+
+
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Salvar</button>
-            </div>
+                <button class="btn btn-primary">
+
+Salvar Alterações
+
+</button>
+            
             </div>
         </div>
     </div>
 
+
+
+</main>
+    </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
         crossorigin="anonymous"></script>
 </body>
 
-</html>
+</html>   
