@@ -114,23 +114,38 @@
         </div>
 
 
-    <main class="p-3 vh-100 w-100"></main>
+    <main class="p-3 vh-100 w-100">
     <!--De aqui pra frente-->
+    
 
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <div>
+                    <h2>Meu Plano Semanal</h2>
+                    <p class="text-muted mb-0">
+                        Consulte as atividades programadas para você.
+                    </p>
+                </div>
 
+                <button
+                    type="button"
+                    class="btn btn-outline-primary"
+                    id="btnAtualizarPlano"
+                >
+                    <i class="bi bi-arrow-clockwise"></i>
+                    Atualizar
+                </button>
+            </div>
 
+            <div class="row g-4" id="listaPlanoSemanal"></div>
 
+        </main>
 
-
-
-
-
-
-</main>
    
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
         crossorigin="anonymous"></script>
+    <script src="js/supervisor_plano.js"></script>
+
 </body>
 
 </html>

@@ -100,7 +100,6 @@
                         </li>
 
                        
-
                         <li class="nav-item d-block py-2 mb-2">
                             <a href="supervisor_configuracoes.html"
                                 class="nav-link text-white btn btn-outline-primary text-start d-flex align-items-center px-3 py-2 w-100">
@@ -113,24 +112,143 @@
             </div>
         </div>
 
+        <main class="p-3 vh-100 w-100">
+            <main class="col-lg-10 p-4">
 
-    <main class="p-3 vh-100 w-100"></main>
-    <!--De aqui pra frente-->
+            <div class="d-flex flex-wrap justify-content-between align-items-center mb-4">
+                <div>
+                    <h2 class="mb-1">Olá, Supervisor!</h2>
+                    <p class="text-muted mb-0">
+                        Acompanhe suas atividades de limpeza.
+                    </p>
+                </div>
 
+                <div class="text-end">
+                    <span class="text-muted" id="dataAtual"></span>
+                </div>
+            </div>
 
+            <!-- CARDS -->
+            <section class="row g-4 mb-4">
 
+                <div class="col-md-6 col-xl-3">
+                    <div class="card dashboard-card shadow-sm h-100">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between">
+                                <div>
+                                    <p class="text-muted mb-1">
+                                        Total de Tarefas
+                                    </p>
+                                    <h2 id="totalTarefas">0</h2>
+                                </div>
 
+                                <i class="bi bi-list-task fs-1 text-primary"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
+                <div class="col-md-6 col-xl-3">
+                    <div class="card dashboard-card shadow-sm h-100">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between">
+                                <div>
+                                    <p class="text-muted mb-1">
+                                        Pendentes
+                                    </p>
+                                    <h2 id="tarefasPendentes">0</h2>
+                                </div>
 
+                                <i class="bi bi-hourglass-split fs-1 text-warning"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
+                <div class="col-md-6 col-xl-3">
+                    <div class="card dashboard-card shadow-sm h-100">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between">
+                                <div>
+                                    <p class="text-muted mb-1">
+                                        Em Andamento
+                                    </p>
+                                    <h2 id="tarefasAndamento">0</h2>
+                                </div>
 
+                                <i class="bi bi-arrow-repeat fs-1 text-info"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
+                <div class="col-md-6 col-xl-3">
+                    <div class="card dashboard-card shadow-sm h-100">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between">
+                                <div>
+                                    <p class="text-muted mb-1">
+                                        Concluídas
+                                    </p>
+                                    <h2 id="tarefasConcluidas">0</h2>
+                                </div>
 
-</main>
-   
+                                <i class="bi bi-check-circle fs-1 text-success"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+
+            <!-- TAREFAS RECENTES -->
+            <section class="card shadow-sm">
+
+                <div class="card-header bg-white d-flex justify-content-between">
+                    <h5 class="mb-0">
+                        <i class="bi bi-clock-history"></i>
+                        Tarefas Recentes
+                    </h5>
+
+                    <a href="minhas-tarefas.html" class="btn btn-primary btn-sm">
+                        Ver todas
+                    </a>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle mb-0">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Tarefa</th>
+                                <th>Local</th>
+                                <th>Prazo</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="listaTarefasRecentes"></tbody>
+                    </table>
+                </div>
+
+            </section>
+
+        </main>
+
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="js/supervisor.js"></script>
+
+</body>
+</html>
+        </main>
+    </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
         crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="js/supervisor.js"></script>
 </body>
 
 </html>

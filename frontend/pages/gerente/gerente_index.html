@@ -49,7 +49,7 @@
                     </span>
                 </button>
                 <!--Perfil do usuário-->
-                <span>Supervisor</espan>
+                <span>Gerente</espan>
                     <span>
                         <button class="btn btn-link dropdown-toggle" type="button" data-bs-toggle="dropdown"
                             aria-expanded="false"></button>
@@ -65,6 +65,7 @@
         </div>
 </header>
     <!--Seção lateral-->
+   
     <div class="d-flex">
         <div class="offcanvas-md" id="main-menu">
             <div class="offcanvas-header"></div>
@@ -72,17 +73,23 @@
                 <nav id="main-nav" class="bg-dark vh-100 px-4 py-4">
                     <ul class="nav nav-pills flex-column">
                         <li class="nav-item d-block py-2 mb-2">
-                            <a href="supervisor_index.html"
+                            <a href="gerente_index.html"
                                 class="nav-link text-white active text-start d-flex align-items-center px-3 py-2 w-100">
                                 <i class="bi bi-house-door-fill me-3"></i>
                                 <span> Página Inicial</span>
                             </a>
                         </li>
 
-                      
+                        <li class="nav-item" d-block py-2 mb-2>
+                            <a href="gerente_plano.html"
+                                class="nav-link text-white btn btn-outline-primary text-start d-flex align-items-center px-3 py-2 w-100">
+                                <i class="bi bi-calendar-check me-3"></i>
+                                <span>Plano Semanal</span>
+                            </a>
+                        </li>
 
                         <li class="nav-item d-block py-2" mb-2>
-                            <a href="supervisor_tarefas.html"
+                            <a href="gerente_tarefas.html"
                                 class="nav-link text-white btn btn-outline-primary text-start d-flex align-items-center px-3 py-2 w-100">
 
                                 <i class="bi bi-pencil-square me-3"></i>
@@ -90,18 +97,32 @@
                             </a>
                         </li>
 
-                        
+                        <li class="nav-item d-block py-2 mb-2">
+                            <a href="gerente_relatorios.html"
+                                class="nav-link text-white btn btn-outline-primary text-start d-flex align-items-center px-3 py-2 w-100">
+                                <i class="bi bi-clipboard2-data me-3"></i>
+                                <span>Relatórios</span>
+                            </a>
+                        </li>
+
                         <li class="nav-item d-block py-2" mb-2>
-                            <a href="supervisor_notificacoes.html"
+                            <a href="gerente_notificacoes.html"
                                 class="nav-link text-white btn btn-outline-primary text-start d-flex align-items-center px-3 py-2 w-100">
                                 <i class="bi bi-bell-fill me-3"></i>
                                 <span>Notificações</span>
                             </a>
                         </li>
 
-                       
                         <li class="nav-item d-block py-2 mb-2">
-                            <a href="supervisor_configuracoes.html"
+                            <a href="usuarios.html"
+                                class="nav-link text-white btn btn-outline-primary text-start d-flex align-items-center px-3 py-2 w-100">
+                                <i class="bi bi-people-fill me-3"></i>
+                                <span>Usuários</span>
+                            </a>
+                        </li>
+
+                        <li class="nav-item d-block py-2 mb-2">
+                            <a href="gerente_configuracoes.html"
                                 class="nav-link text-white btn btn-outline-primary text-start d-flex align-items-center px-3 py-2 w-100">
                                 <i class="bi bi-gear me-3"></i>
                                 <span>Configurações</span>
@@ -111,12 +132,24 @@
                 </nav>
             </div>
         </div>
+       
+   
+     <main class="p-3 vh-100 w-100">
+             <div class="container bg-white shadow-sm p-4 rounded">
 
-        <main class="p-3 vh-100 w-100">
-            <h2 class="border-bottom display-6 pb-2 fw-medium mb-1">
-                Página Inicial
-            </h2>
-            <p>Seja bem-vindo!</p>
+            <h2>
+
+        <i class="bi bi-house-door-fill text-primary"></i>
+
+        Pagina Inicial
+
+        </h2>
+
+        <h6>Seja bem-vindo!</h6>
+
+        <hr>
+           
+        <br>
 
             <!-- Status tarefas -->
             <div class="row">
