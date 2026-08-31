@@ -1,0 +1,78 @@
+:root{
+    --primary:#2525b8;
+    --header:#12c1df;
+    --sidebar:#20252a;
+    --sidebar-hover:#2d3338;
+    --text:#17212b;
+    --muted:#6c757d;
+    --border:#dee2e6;
+    --bg:#f7f9fb;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:Arial,Helvetica,sans-serif}
+.app-header{
+    height:112px;background:var(--header);display:flex;align-items:center;
+    justify-content:space-between;padding:0 4%;position:fixed;top:0;left:0;right:0;z-index:1030;
+}
+.logo-box{width:148px;height:92px;border:2px solid #0b1b24;display:flex;align-items:center;justify-content:center;text-align:center;font-weight:800;font-size:22px;line-height:1.25}
+.header-user{display:flex;align-items:center;gap:12px;font-size:18px}
+.header-user button{border:0;background:transparent;font-size:18px}
+.sidebar{
+    position:fixed;left:0;top:112px;bottom:0;width:300px;background:var(--sidebar);
+    padding:28px 18px;z-index:1020;overflow-y:auto
+}
+.sidebar .nav-link{
+    color:#f2f5f7;padding:15px 18px;margin-bottom:8px;border-radius:8px;
+    font-size:18px;display:flex;align-items:center;gap:14px
+}
+.sidebar .nav-link:hover,.sidebar .nav-link.active{background:var(--primary);color:#fff}
+.sidebar .nav-link i{font-size:20px;width:24px;text-align:center}
+.main-content{margin-left:300px;padding:145px 32px 40px;min-height:100vh}
+.page-title{display:flex;align-items:end;justify-content:space-between;gap:20px;border-bottom:1px solid #e5e7eb;padding-bottom:18px;margin-bottom:12px}
+.page-title h1{font-size:44px;margin:0;font-weight:500}
+.page-title .date{font-size:18px;color:#444}
+.welcome{font-size:22px;margin:12px 0 28px}
+.stats-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:28px}
+.stat-card{
+    background:#fff;border:2px solid #7fb1ff;border-radius:8px;padding:28px 24px;
+    min-height:160px;box-shadow:0 2px 5px rgba(0,0,0,.03)
+}
+.stat-card .value{font-size:40px;font-weight:700;color:var(--primary);text-align:center}
+.stat-card .label{font-size:20px;color:var(--primary);font-weight:700;margin-top:18px}
+.stat-card .icon{float:right;color:var(--primary);font-size:30px}
+.card{border:0;box-shadow:0 2px 12px rgba(0,0,0,.06)}
+.card-header{background:#fff;border-bottom:1px solid var(--border);font-weight:700}
+.table-responsive{border-radius:8px}
+.status-badge{min-width:105px}
+.avatar{width:42px;height:42px;border-radius:50%;object-fit:cover;background:#e9ecef}
+.filters{background:#fff;padding:18px;border-radius:8px;margin-bottom:20px;box-shadow:0 2px 8px rgba(0,0,0,.04)}
+.notification-unread{border-left:4px solid var(--primary);background:#f4f8ff}
+.login-page{min-height:100vh;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#12c1df,#0d6efd)}
+.login-card{width:min(430px,92vw);background:#fff;border-radius:14px;box-shadow:0 20px 60px rgba(0,0,0,.18);padding:32px}
+.login-logo{font-size:28px;font-weight:800;text-align:center;margin-bottom:25px}
+.form-control,.form-select{min-height:44px}
+.modal-header{background:#f8f9fa}
+.empty-state{text-align:center;padding:50px;color:var(--muted)}
+.kpi{font-size:30px;font-weight:800}
+.small-muted{color:var(--muted);font-size:.9rem}
+.timeline{border-left:3px solid #cfe2ff;padding-left:20px}
+.timeline-item{margin-bottom:20px;position:relative}
+.timeline-item:before{content:"";position:absolute;left:-28px;top:3px;width:12px;height:12px;background:var(--primary);border-radius:50%}
+@media (max-width:1100px){
+    .sidebar{width:240px}.main-content{margin-left:240px}.stats-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media (max-width:768px){
+    .app-header{height:82px;padding:0 16px}.logo-box{width:100px;height:58px;font-size:15px}
+    .header-user{font-size:14px}.sidebar{
+        top:82px;width:78px;padding:14px 8px
+    }.sidebar .nav-link{justify-content:center;padding:14px 8px}.sidebar .nav-link span{display:none}
+    .sidebar .nav-link i{font-size:21px}
+    .main-content{margin-left:78px;padding:108px 16px 30px}
+    .page-title{display:block}.page-title h1{font-size:30px}.page-title .date{margin-top:8px}
+    .stats-grid{grid-template-columns:1fr;gap:14px}.stat-card{min-height:130px}
+}
+@media(max-width:480px){
+    .main-content{padding-left:10px;padding-right:10px}
+    .page-title h1{font-size:26px}.stat-card{padding:20px}
+    .table{font-size:13px}.btn{font-size:13px}
+}
