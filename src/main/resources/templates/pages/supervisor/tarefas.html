@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Org-limp - Minhas Tarefas</title>
+    <link rel="shortcut icon" th:href="@{/img/logo2.png}" type="image/x-icon">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+    <link th:href="@{/css/style.css}" rel="stylesheet">
+</head>
+<body>
+<div th:replace="~{fragments/header :: header}"></div>
+<div th:replace="~{fragments/sidebar :: sidebar}"></div>
+
+<main class="main-content">
+    <section class="page-title">
+        <h1>Minhas Tarefas</h1>
+        <div class="date">Atualização de status em tempo real</div>
+    </section>
+
+    <div th:if="${success}" class="alert alert-success" th:text="${success}"></div>
+    <div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
+
+    <div class="card">
+        <div class="card-body table-responsive">
+            <table class="table align-middle">
+                <thead>
+                    <tr>
+                        <th>Tarefa</th>
+                        <th>Local</th>
+                        <th>Data/Hora</th>
+                        <th>Status</th>
+                        <th>Observação</th>
+                        <th>Ação</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="tarefa : ${tarefas}">
+                        <td><strong th:text="${tarefa.titulo}">Título</strong></td>
+                        <td th:text="${tarefa.local}">Local</td>
+                        <td>
+                            <span th:text="${#temporals.format(tarefa.data, 'dd/MM/yyyy')}">Data</span><br>
+                            <span th:text="${tarefa.hora}">Hora</span>
+                        </td>
+                        <td>
+                            <span class="badge" th:classappend="${tarefa.status.name() == 'pendente'} ? 'bg-secondary' : (${tarefa.status.name() == 'iniciada'} ? 'bg-info text-dark' : (${tarefa.status.name() == 'em_andamento'} ? 'bg-warning text-dark' : 'bg-success'))" th:text="${tarefa.status.name().replace('_', ' ')}">Status</span>
+                        </td>
+                        <td th:text="${tarefa.observacao}">Obs</td>
+                        <td>
+                            <button class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#statusModal"
+                                    th:onclick="'document.getElementById(\'taskId\').value=' + ${tarefa.id} + '; document.getElementById(\'currentStatus\').textContent=\'' + ${tarefa.status.name().replace('_', ' ')} + '\';'">
+                                Atualizar
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="empty-state" th:if="${#lists.isEmpty(tarefas)}">Nenhuma tarefa.</div>
+        </div>
+    </div>
+
+    <!-- Modal Atualizar Status -->
+    <div class="modal fade" id="statusModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form th:action="@{/tarefas/{id}/status(id=${tarefa.id})}" method="post" id="statusForm">
+                    <div class="modal-header">
+                        <h5>Atualizar Status</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <input type="hidden" id="taskId" name="id">
+                        <p>Status atual: <strong id="currentStatus"></strong></p>
+                        <div class="mb-3">
+                            <label class="form-label">Novo status</label>
+                            <select name="status" class="form-select" required>
+                                <option value="pendente">Pendente</option>
+                                <option value="iniciada">Iniciada</option>
+                                <option value="em_andamento">Em andamento</option>
+                                <option value="concluida">Concluída</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Observação</label>
+                            <textarea name="observacao" class="form-control" rows="3"></textarea>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button class="btn btn-primary">Atualizar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

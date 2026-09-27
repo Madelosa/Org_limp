@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Org-limp - Relatórios</title>
+    <link rel="shortcut icon" th:href="@{/img/logo2.png}" type="image/x-icon">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+    <link th:href="@{/css/style.css}" rel="stylesheet">
+</head>
+<body>
+<div th:replace="~{fragments/header :: header}"></div>
+<div th:replace="~{fragments/sidebar :: sidebar}"></div>
+
+<main class="main-content">
+    <section class="page-title">
+        <h1>Relatórios</h1>
+        <button class="btn btn-outline-primary" onclick="window.print()"><i class="bi bi-printer"></i> Imprimir</button>
+    </section>
+
+    <div class="row g-4">
+        <div class="col-md-3">
+            <div class="card p-4">
+                <div class="small-muted">Total de tarefas</div>
+                <div class="kpi" th:text="${#lists.size(tarefas)}">0</div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card p-4">
+                <div class="small-muted">Concluídas</div>
+                <div class="kpi" th:text="${#lists.size(tarefas.?[status.name() == 'concluida'])}">0</div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card p-4">
+                <div class="small-muted">Pendentes</div>
+                <div class="kpi" th:text="${#lists.size(tarefas.?[status.name() == 'pendente'])}">0</div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card p-4">
+                <div class="small-muted">Taxa de conclusão</div>
+                <div class="kpi" th:text="${#lists.size(tarefas) > 0} ? ${#lists.size(tarefas.?[status.name() == 'concluida']) * 100 / #lists.size(tarefas)} + '%' : '0%'">0%</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card mt-4">
+        <div class="card-header">Resumo por supervisor</div>
+        <div class="card-body table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Supervisor</th>
+                        <th>Total</th>
+                        <th>Concluídas</th>
+                        <th>Em aberto</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="sup : ${supervisores}">
+                        <td th:text="${sup.nome}">Nome</td>
+                        <td th:text="${#lists.size(tarefas.?[supervisorId == sup.id])}">0</td>
+                        <td th:text="${#lists.size(tarefas.?[supervisorId == sup.id and status.name() == 'concluida'])}">0</td>
+                        <td th:text="${#lists.size(tarefas.?[supervisorId == sup.id and status.name() != 'concluida'])}">0</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

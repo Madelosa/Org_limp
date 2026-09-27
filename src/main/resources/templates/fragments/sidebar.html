@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<aside class="sidebar" th:fragment="sidebar">
+    <nav class="nav flex-column">
+        <!-- Gerente -->
+        <th:block th:if="${usuario.perfil.name() == 'gerente'}">
+            <a class="nav-link" th:classappend="${#httpServletRequest.requestURI.contains('/gerente/dashboard')} ? 'active'" th:href="@{/gerente/dashboard}">
+                <i class="bi bi-house-fill"></i><span>Página Inicial</span>
+            </a>
+            <a class="nav-link" th:classappend="${#httpServletRequest.requestURI.contains('/gerente/plano')} ? 'active'" th:href="@{/gerente/plano}">
+                <i class="bi bi-calendar-check"></i><span>Plano Semanal</span>
+            </a>
+            <a class="nav-link" th:classappend="${#httpServletRequest.requestURI.contains('/gerente/tarefas')} ? 'active'" th:href="@{/gerente/tarefas}">
+                <i class="bi bi-pencil-square"></i><span>Tarefas</span>
+            </a>
+            <a class="nav-link" th:classappend="${#httpServletRequest.requestURI.contains('/gerente/relatorios')} ? 'active'" th:href="@{/gerente/relatorios}">
+                <i class="bi bi-file-earmark-bar-graph"></i><span>Relatórios</span>
+            </a>
+            <a class="nav-link" th:classappend="${#httpServletRequest.requestURI.contains('/gerente/notificacoes')} ? 'active'" th:href="@{/gerente/notificacoes}">
+                <i class="bi bi-bell-fill"></i><span>Notificações</span>
+            </a>
+            <a class="nav-link" th:classappend="${#httpServletRequest.requestURI.contains('/gerente/usuarios')} ? 'active'" th:href="@{/gerente/usuarios}">
+                <i class="bi bi-people-fill"></i><span>Usuários</span>
+            </a>
+            <a class="nav-link" th:classappend="${#httpServletRequest.requestURI.contains('/gerente/configuracoes')} ? 'active'" th:href="@{/gerente/configuracoes}">
+                <i class="bi bi-gear-fill"></i><span>Configurações</span>
+            </a>
+        </th:block>
+
+        <!-- Supervisor -->
+        <th:block th:if="${usuario.perfil.name() == 'supervisor'}">
+            <a class="nav-link" th:classappend="${#httpServletRequest.requestURI.contains('/supervisor/dashboard')} ? 'active'" th:href="@{/supervisor/dashboard}">
+                <i class="bi bi-house-fill"></i><span>Página Inicial</span>
+            </a>
+            <a class="nav-link" th:classappend="${#httpServletRequest.requestURI.contains('/supervisor/tarefas')} ? 'active'" th:href="@{/supervisor/tarefas}">
+                <i class="bi bi-list-check"></i><span>Minhas Tarefas</span>
+            </a>
+            <a class="nav-link" th:classappend="${#httpServletRequest.requestURI.contains('/supervisor/notificacoes')} ? 'active'" th:href="@{/supervisor/notificacoes}">
+                <i class="bi bi-bell-fill"></i><span>Notificações</span>
+            </a>
+            <a class="nav-link" th:classappend="${#httpServletRequest.requestURI.contains('/supervisor/perfil')} ? 'active'" th:href="@{/supervisor/perfil}">
+                <i class="bi bi-person-circle"></i><span>Meu Perfil</span>
+            </a>
+        </th:block>
+    </nav>
+</aside>
+</body>
+</html>
