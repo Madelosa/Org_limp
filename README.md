@@ -27,7 +27,7 @@ docker compose up --build
 Para parar:
 
 ```bash
-docker compose down
+docker compose down -v
 ```
 
 Para reconstruir após alterações no código:
