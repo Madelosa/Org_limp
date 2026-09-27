@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Org-limp - Notificações</title>
+    <link rel="shortcut icon" th:href="@{/img/logo2.png}" type="image/x-icon">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+    <link th:href="@{/css/style.css}" rel="stylesheet">
+</head>
+<body>
+<div th:replace="~{fragments/header :: header}"></div>
+<div th:replace="~{fragments/sidebar :: sidebar}"></div>
+
+<main class="main-content">
+    <section class="page-title">
+        <h1>Notificações</h1>
+        <a class="btn btn-outline-primary" th:href="@{/notificacoes/ler-todas}">Marcar todas como lidas</a>
+    </section>
+
+    <div class="card">
+        <div class="card-body">
+            <div class="p-3 mb-2 rounded" th:classappend="${notif.lida} ? '' : 'notification-unread'"
+                 th:each="notif : ${notificacoes}">
+                <div class="d-flex justify-content-between">
+                    <strong th:text="${notif.titulo}">Título</strong>
+                    <small th:text="${#temporals.format(notif.data, 'dd/MM/yyyy HH:mm')}">Data</small>
+                </div>
+                <div th:text="${notif.mensagem}">Mensagem</div>
+                <span class="badge bg-primary mt-2" th:if="${!notif.lida}">Nova</span>
+            </div>
+            <div class="empty-state" th:if="${#lists.isEmpty(notificacoes)}">Nenhuma notificação.</div>
+        </div>
+    </div>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

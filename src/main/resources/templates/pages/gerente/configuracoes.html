@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Org-limp - Configurações</title>
+    <link rel="shortcut icon" th:href="@{/img/logo2.png}" type="image/x-icon">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+    <link th:href="@{/css/style.css}" rel="stylesheet">
+</head>
+<body>
+<div th:replace="~{fragments/header :: header}"></div>
+<div th:replace="~{fragments/sidebar :: sidebar}"></div>
+
+<main class="main-content">
+    <section class="page-title">
+        <h1>Configurações</h1>
+    </section>
+
+    <div th:if="${success}" class="alert alert-success" th:text="${success}"></div>
+    <div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
+
+    <div class="row g-4">
+        <div class="col-lg-7">
+            <div class="card">
+                <div class="card-header">Preferências de comunicação</div>
+                <div class="card-body">
+                    <form th:action="@{/configuracoes/salvar}" th:object="${configuracao}" method="post">
+                        <div class="mb-3">
+                            <label class="form-label">Nome da empresa</label>
+                            <input class="form-control" th:field="*{empresa}">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">E-mail para notificações</label>
+                            <input type="email" class="form-control" th:field="*{email}">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">WhatsApp</label>
+                            <input class="form-control" th:field="*{whatsapp}" placeholder="+55 11 99999-9999">
+                        </div>
+                        <div class="form-check mb-2">
+                            <input class="form-check-input" type="checkbox" th:field="*{notificarEmail}">
+                            <label class="form-check-label">Enviar notificações por e-mail</label>
+                        </div>
+                        <div class="form-check mb-3">
+                            <input class="form-check-input" type="checkbox" th:field="*{notificarWhatsApp}">
+                            <label class="form-check-label">Enviar notificações por WhatsApp</label>
+                        </div>
+                        <button class="btn btn-primary">Salvar configurações</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-5">
+            <div class="card">
+                <div class="card-header">Integrações</div>
+                <div class="card-body">
+                    <p><i class="bi bi-database"></i> MySQL: configurado via Docker</p>
+                    <p><i class="bi bi-envelope"></i> E-mail: endpoint preparado</p>
+                    <p><i class="bi bi-whatsapp"></i> WhatsApp: endpoint preparado</p>
+                    <div class="alert alert-info">Sistema integrado ao banco de dados MySQL via Docker Compose.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
