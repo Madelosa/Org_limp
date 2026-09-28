@@ -15,6 +15,7 @@ services:
         condition: service_healthy
     networks:
       - orglimp-network
+    restart: unless-stopped
 
   mysql:
     image: mysql:8.0
@@ -27,11 +28,12 @@ services:
       - mysql_data:/var/lib/mysql
     healthcheck:
       test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-proot"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
+      interval: 5s
+      timeout: 3s
+      retries: 10
     networks:
       - orglimp-network
+    restart: unless-stopped
 
 volumes:
   mysql_data:

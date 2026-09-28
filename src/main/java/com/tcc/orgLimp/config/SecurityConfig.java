@@ -1,8 +1,8 @@
 package com.tcc.orgLimp.config;
 
-import com.tcc.orgLimp.repository.UsuarioRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.userdetails.User;
@@ -10,6 +10,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.savedrequest.NullRequestCache;
 
 @Configuration
 @EnableWebSecurity
@@ -39,14 +40,24 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-            .csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers("/login", "/css/**", "/js/**", "/img/**", "/error").permitAll()
+                .requestMatchers(HttpMethod.POST, "/login").permitAll()
+                .requestMatchers("/gerente/**").hasRole("GERENTE")
+                .requestMatchers("/supervisor/**").hasRole("SUPERVISOR")
                 .anyRequest().authenticated()
             )
-            .formLogin(form -> form.disable())
-            .httpBasic(basic -> basic.disable())
-            .logout(logout -> logout.disable());
+            .formLogin(form -> form
+                .loginPage("/login")
+                .loginProcessingUrl("/login")
+                .defaultSuccessUrl("/", true)
+                .permitAll()
+            )
+            .logout(logout -> logout
+                .logoutUrl("/logout")
+                .logoutSuccessUrl("/login?logout")
+                .permitAll()
+            );
 
         return http.build();
     }

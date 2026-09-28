@@ -51,7 +51,8 @@
                         <td th:text="${tarefa.observacao}">Obs</td>
                         <td>
                             <button class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#statusModal"
-                                    th:onclick="'document.getElementById(\'taskId\').value=' + ${tarefa.id} + '; document.getElementById(\'currentStatus\').textContent=\'' + ${tarefa.status.name().replace('_', ' ')} + '\';'">
+                                    th:attr="data-task-id=${tarefa.id},data-task-status=${tarefa.status.name().replace('_', ' ')}"
+                                    onclick="document.getElementById('taskId').value=this.getAttribute('data-task-id'); document.getElementById('currentStatus').textContent=this.getAttribute('data-task-status');">
                                 Atualizar
                             </button>
                         </td>
@@ -66,7 +67,7 @@
     <div class="modal fade" id="statusModal" tabindex="-1">
         <div class="modal-dialog">
             <div class="modal-content">
-                <form th:action="@{/tarefas/{id}/status(id=${tarefa.id})}" method="post" id="statusForm">
+                <form th:action="@{/tarefas/{id}/status(id=0)}" method="post" id="statusForm">
                     <div class="modal-header">
                         <h5>Atualizar Status</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
