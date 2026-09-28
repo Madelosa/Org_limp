@@ -2,9 +2,9 @@
 
 -- Usuários (senha: 123456)
 INSERT INTO usuarios (nome, email, senha, perfil, ativo) VALUES
-('Maria Gerente', 'gerente@empresa.com', '$2b$10$HFvCYe2AJpr1O2ko9CK1/.oxAC7ouDA1Zt8L5z34bWjoQCqv3q/.i', 'gerente', true),
-('João Supervisor', 'supervisor@empresa.com', '$2b$10$HFvCYe2AJpr1O2ko9CK1/.oxAC7ouDA1Zt8L5z34bWjoQCqv3q/.i', 'supervisor', true),
-('Ana Supervisora', 'ana.supervisor@empresa.com', '$2b$10$HFvCYe2AJpr1O2ko9CK1/.oxAC7ouDA1Zt8L5z34bWjoQCqv3q/.i', 'supervisor', true);
+('Maria Gerente', 'gerente@empresa.com', '$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy', 'gerente', true),
+('João Supervisor', 'supervisor@empresa.com', '$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy', 'supervisor', true),
+('Ana Supervisora', 'ana.supervisor@empresa.com', '$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy', 'supervisor', true);
 
 -- Tarefas
 INSERT INTO tarefas (titulo, local, data, hora, prazo, supervisor_id, status, observacao, criado_em) VALUES

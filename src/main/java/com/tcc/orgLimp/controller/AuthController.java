@@ -56,35 +56,7 @@ public class AuthController {
         }
 
         session.setAttribute("usuario", usuario);
-
-        // Criar Authentication para o Spring Security
-        String role = "ROLE_" + usuario.getPerfil().name().toUpperCase();
-        Authentication auth = new UsernamePasswordAuthenticationToken(
-                usuario.getEmail(),
-                null,
-                Collections.singletonList(new SimpleGrantedAuthority(role))
-        );
-
-        // Criar novo SecurityContext e definir a authentication
-        SecurityContext context = SecurityContextHolder.createEmptyContext();
-        context.setAuthentication(auth);
-        SecurityContextHolder.setContext(context);
-
-        // Salvar EXPLICITAMENTE na session HTTP para persistir entre requisições
-        SecurityContextRepository repository = new HttpSessionSecurityContextRepository();
-        repository.saveContext(context, request, response);
-
-        System.out.println("[AUTH CONTROLLER] Login realizado: " + usuario.getEmail() + " | Role: " + role);
-
-        if (usuario.getPerfil() == Usuario.Perfil.gerente) {
-            return "redirect:/gerente/tarefas";
-        } else if (usuario.getPerfil() == Usuario.Perfil.supervisor) {
-            return "redirect:/supervisor/tarefas";
-        }
-
-        session.invalidate();
-        redirectAttributes.addFlashAttribute("error", "Perfil não autorizado.");
-        return "redirect:/login";
+        return "redirect:/";
     }
 
     @GetMapping("/logout")
