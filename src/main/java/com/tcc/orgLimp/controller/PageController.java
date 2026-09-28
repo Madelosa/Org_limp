@@ -32,9 +32,9 @@ public class PageController {
         if (usuario == null) return "redirect:/login";
 
         if (usuario.getPerfil() == Usuario.Perfil.gerente) {
-            return "redirect:/gerente/dashboard";
+            return "redirect:/gerente/tarefas";
         }
-        return "redirect:/supervisor/dashboard";
+        return "redirect:/supervisor/tarefas";
     }
 
     // ========== GERENTE ==========

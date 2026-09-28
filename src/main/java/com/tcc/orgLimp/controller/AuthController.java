@@ -42,7 +42,16 @@ public class AuthController {
         }
 
         session.setAttribute("usuario", usuario);
-        return "redirect:/";
+
+        if (usuario.getPerfil() == Usuario.Perfil.gerente) {
+            return "redirect:/gerente/tarefas";
+        } else if (usuario.getPerfil() == Usuario.Perfil.supervisor) {
+            return "redirect:/supervisor/tarefas";
+        }
+
+        session.invalidate();
+        redirectAttributes.addFlashAttribute("error", "Perfil não autorizado.");
+        return "redirect:/login";
     }
 
     @GetMapping("/logout")
