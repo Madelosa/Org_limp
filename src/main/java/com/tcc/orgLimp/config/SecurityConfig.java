@@ -1,10 +1,14 @@
 package com.tcc.orgLimp.config;
 
+import com.tcc.orgLimp.entity.Usuario;
+import com.tcc.orgLimp.repository.UsuarioRepository;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
@@ -13,6 +17,12 @@ import org.springframework.security.web.context.SecurityContextRepository;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
+
+    private final UsuarioRepository usuarioRepository;
+
+    public SecurityConfig(UsuarioRepository usuarioRepository) {
+        this.usuarioRepository = usuarioRepository;
+    }
 
     @Bean
     public SecurityContextRepository securityContextRepository() {
@@ -23,6 +33,13 @@ public class SecurityConfig {
     public AuthenticationSuccessHandler authenticationSuccessHandler() {
         return (request, response, authentication) -> {
             String role = authentication.getAuthorities().iterator().next().getAuthority();
+
+            // Busca o usuário no banco e define na sessão antes de redirecionar
+            String email = authentication.getName();
+            Usuario usuario = usuarioRepository.findByEmail(email).orElse(null);
+            HttpSession session = request.getSession(true);
+            session.setAttribute("usuario", usuario);
+
             if ("ROLE_GERENTE".equals(role)) {
                 response.sendRedirect("/gerente/dashboard");
             } else if ("ROLE_SUPERVISOR".equals(role)) {
