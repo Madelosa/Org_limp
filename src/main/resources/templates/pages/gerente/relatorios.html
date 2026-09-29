@@ -43,7 +43,7 @@
         <div class="col-md-3">
             <div class="card p-4">
                 <div class="small-muted">Taxa de conclusão</div>
-                <div class="kpi" th:text="${#lists.size(tarefas) > 0} ? ${#lists.size(tarefas.?[status.name() == 'concluida']) * 100 / #lists.size(tarefas)} + '%' : '0%'">0%</div>
+                <div class="kpi" th:text="${#lists.size(tarefas) > 0 ? (#lists.size(tarefas.?[status.name() == 'concluida']) * 100 / #lists.size(tarefas)) + '%' : '0%'}">0%</div>
             </div>
         </div>
     </div>
