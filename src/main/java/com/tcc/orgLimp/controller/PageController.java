@@ -23,8 +23,8 @@ public class PageController {
     private final UsuarioRepository usuarioRepository;
 
     public PageController(UsuarioService usuarioService, TarefaService tarefaService,
-                          NotificacaoService notificacaoService, ConfiguracaoService configuracaoService,
-                          UsuarioRepository usuarioRepository) {
+            NotificacaoService notificacaoService, ConfiguracaoService configuracaoService,
+            UsuarioRepository usuarioRepository) {
         this.usuarioService = usuarioService;
         this.tarefaService = tarefaService;
         this.notificacaoService = notificacaoService;
@@ -41,7 +41,8 @@ public class PageController {
 
         String email = auth.getName();
         Usuario usuario = usuarioRepository.findByEmail(email).orElse(null);
-        if (usuario == null) return "redirect:/login";
+        if (usuario == null)
+            return "redirect:/login";
 
         session.setAttribute("usuario", usuario);
 
@@ -85,12 +86,43 @@ public class PageController {
 
     @GetMapping("/gerente/relatorios")
     public String gerenteRelatorios(HttpSession session, Model model) {
+
         Usuario usuario = (Usuario) session.getAttribute("usuario");
+
+        if (usuario == null) {
+            return "redirect:/login";
+        }
+
         List<Tarefa> tarefas = tarefaService.listarTodas();
+        List<Usuario> supervisores = usuarioService.listarSupervisores();
+
+        long totalTarefas = tarefas.size();
+
+        long concluidas = tarefas.stream()
+                .filter(t -> t.getStatus() == Tarefa.Status.concluida)
+                .count();
+
+        long pendentes = tarefas.stream()
+                .filter(t -> t.getStatus() == Tarefa.Status.pendente)
+                .count();
+
+        long taxaConclusao = totalTarefas > 0
+                ? (concluidas * 100) / totalTarefas
+                : 0;
+
         model.addAttribute("usuario", usuario);
         model.addAttribute("tarefas", tarefas);
-        model.addAttribute("supervisores", usuarioService.listarSupervisores());
-        model.addAttribute("naoLidas", notificacaoService.contarNaoLidas(usuario.getId()));
+        model.addAttribute("supervisores", supervisores);
+
+        model.addAttribute("totalTarefas", totalTarefas);
+        model.addAttribute("concluidas", concluidas);
+        model.addAttribute("pendentes", pendentes);
+        model.addAttribute("taxaConclusao", taxaConclusao);
+
+        model.addAttribute(
+                "naoLidas",
+                notificacaoService.contarNaoLidas(usuario.getId()));
+
         return "pages/gerente/relatorios";
     }
 
