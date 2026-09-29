@@ -2,8 +2,11 @@ package com.tcc.orgLimp.controller;
 
 import com.tcc.orgLimp.entity.Tarefa;
 import com.tcc.orgLimp.entity.Usuario;
+import com.tcc.orgLimp.repository.UsuarioRepository;
 import com.tcc.orgLimp.service.*;
 import jakarta.servlet.http.HttpSession;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,24 +20,35 @@ public class PageController {
     private final TarefaService tarefaService;
     private final NotificacaoService notificacaoService;
     private final ConfiguracaoService configuracaoService;
+    private final UsuarioRepository usuarioRepository;
 
     public PageController(UsuarioService usuarioService, TarefaService tarefaService,
-                          NotificacaoService notificacaoService, ConfiguracaoService configuracaoService) {
+                          NotificacaoService notificacaoService, ConfiguracaoService configuracaoService,
+                          UsuarioRepository usuarioRepository) {
         this.usuarioService = usuarioService;
         this.tarefaService = tarefaService;
         this.notificacaoService = notificacaoService;
         this.configuracaoService = configuracaoService;
+        this.usuarioRepository = usuarioRepository;
     }
 
     @GetMapping("/")
     public String home(HttpSession session, Model model) {
-        Usuario usuario = (Usuario) session.getAttribute("usuario");
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth == null || !auth.isAuthenticated() || "anonymousUser".equals(auth.getPrincipal())) {
+            return "redirect:/login";
+        }
+
+        String email = auth.getName();
+        Usuario usuario = usuarioRepository.findByEmail(email).orElse(null);
         if (usuario == null) return "redirect:/login";
 
+        session.setAttribute("usuario", usuario);
+
         if (usuario.getPerfil() == Usuario.Perfil.gerente) {
-            return "redirect:/gerente/tarefas";
+            return "redirect:/gerente/dashboard";
         }
-        return "redirect:/supervisor/tarefas";
+        return "redirect:/supervisor/dashboard";
     }
 
     // ========== GERENTE ==========
