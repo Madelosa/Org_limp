@@ -52,7 +52,7 @@
                         <td>
                             <button class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#statusModal"
                                     th:attr="data-task-id=${tarefa.id},data-task-status=${tarefa.status.name().replace('_', ' ')}"
-                                    onclick="document.getElementById('taskId').value=this.getAttribute('data-task-id'); document.getElementById('currentStatus').textContent=this.getAttribute('data-task-status');">
+                                    onclick="document.getElementById('taskId').value=this.getAttribute('data-task-id'); document.getElementById('currentStatus').textContent=this.getAttribute('data-task-status'); document.getElementById('statusForm').action='/tarefas/' + this.getAttribute('data-task-id') + '/status';">
                                 Atualizar
                             </button>
                         </td>
@@ -67,7 +67,8 @@
     <div class="modal fade" id="statusModal" tabindex="-1">
         <div class="modal-dialog">
             <div class="modal-content">
-                <form th:action="@{/tarefas/{id}/status(id=0)}" method="post" id="statusForm">
+                <form method="post" id="statusForm">
+                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
                     <div class="modal-header">
                         <h5>Atualizar Status</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
