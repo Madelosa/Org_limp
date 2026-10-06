@@ -89,6 +89,21 @@ public class SecurityConfig {
                 .requestMatchers("/supervisor/**")
                     .hasRole("SUPERVISOR")
 
+                .requestMatchers("/usuarios/**")
+                    .hasRole("GERENTE")
+
+                .requestMatchers("/configuracoes/**")
+                    .hasRole("GERENTE")
+
+                .requestMatchers("/tarefas/salvar")
+                    .hasRole("GERENTE")
+
+                .requestMatchers("/tarefas/*/status")
+                    .hasRole("SUPERVISOR")
+
+                .requestMatchers("/tarefas/*/deletar")
+                    .hasRole("GERENTE")
+
                 .anyRequest()
                     .authenticated()
             )
