@@ -18,11 +18,12 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return usuarioRepository.findByEmail(username)
-                .map(usuario -> User.withUsername(usuario.getEmail())
-                        .password(usuario.getSenha())
-                        .roles(usuario.getPerfil().name().toUpperCase())
-                        .build())
-                .orElseThrow(() -> new UsernameNotFoundException("Usuário não encontrado: " + username));
-    }
+        return usuarioRepository.findByEmailAndAtivoTrue(username)
+            .map(usuario -> User.withUsername(usuario.getEmail())
+                    .password(usuario.getSenha())
+                    .roles(usuario.getPerfil().name().toUpperCase())
+                    .build())
+            .orElseThrow(() -> new UsernameNotFoundException(
+                    "Usuário não encontrado ou inativo: " + username));
+}
 }
