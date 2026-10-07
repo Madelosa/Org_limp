@@ -1,5 +1,6 @@
 package com.tcc.orgLimp.controller;
 
+import com.tcc.orgLimp.dto.UsuarioSessao;
 import com.tcc.orgLimp.entity.Tarefa;
 import com.tcc.orgLimp.entity.Usuario;
 import com.tcc.orgLimp.repository.UsuarioRepository;
@@ -56,7 +57,7 @@ public class PageController {
 
     @GetMapping("/gerente/dashboard")
     public String gerenteDashboard(HttpSession session, Model model) {
-        Usuario usuario = (Usuario) session.getAttribute("usuario");
+        UsuarioSessao usuario = (UsuarioSessao) session.getAttribute("usuario");
         model.addAttribute("usuario", usuario);
         model.addAttribute("tarefas", tarefaService.listarTodas());
         model.addAttribute("notificacoes", notificacaoService.listarPorDestinatario(usuario.getId()));
@@ -66,7 +67,7 @@ public class PageController {
 
     @GetMapping("/gerente/tarefas")
     public String gerenteTarefas(HttpSession session, Model model) {
-        Usuario usuario = (Usuario) session.getAttribute("usuario");
+        UsuarioSessao usuario = (UsuarioSessao) session.getAttribute("usuario");
         model.addAttribute("usuario", usuario);
         model.addAttribute("tarefas", tarefaService.listarTodas());
         model.addAttribute("supervisores", usuarioService.listarSupervisores());
@@ -76,7 +77,7 @@ public class PageController {
 
     @GetMapping("/gerente/plano")
     public String gerentePlano(HttpSession session, Model model) {
-        Usuario usuario = (Usuario) session.getAttribute("usuario");
+        UsuarioSessao usuario = (UsuarioSessao) session.getAttribute("usuario");
         model.addAttribute("usuario", usuario);
         model.addAttribute("tarefas", tarefaService.listarTodas());
         model.addAttribute("supervisores", usuarioService.listarSupervisores());
@@ -87,7 +88,7 @@ public class PageController {
     @GetMapping("/gerente/relatorios")
     public String gerenteRelatorios(HttpSession session, Model model) {
 
-        Usuario usuario = (Usuario) session.getAttribute("usuario");
+        UsuarioSessao usuario = (UsuarioSessao) session.getAttribute("usuario");
 
         if (usuario == null) {
             return "redirect:/login";
@@ -128,7 +129,7 @@ public class PageController {
 
     @GetMapping("/gerente/notificacoes")
     public String gerenteNotificacoes(HttpSession session, Model model) {
-        Usuario usuario = (Usuario) session.getAttribute("usuario");
+        UsuarioSessao usuario = (UsuarioSessao) session.getAttribute("usuario");
         model.addAttribute("usuario", usuario);
         model.addAttribute("notificacoes", notificacaoService.listarPorDestinatario(usuario.getId()));
         model.addAttribute("naoLidas", notificacaoService.contarNaoLidas(usuario.getId()));
@@ -137,7 +138,7 @@ public class PageController {
 
     @GetMapping("/gerente/usuarios")
     public String gerenteUsuarios(HttpSession session, Model model) {
-        Usuario usuario = (Usuario) session.getAttribute("usuario");
+        UsuarioSessao usuario = (UsuarioSessao) session.getAttribute("usuario");
         model.addAttribute("usuario", usuario);
         model.addAttribute("usuarios", usuarioService.listarTodos());
         model.addAttribute("naoLidas", notificacaoService.contarNaoLidas(usuario.getId()));
@@ -146,7 +147,7 @@ public class PageController {
 
     @GetMapping("/gerente/configuracoes")
     public String gerenteConfiguracoes(HttpSession session, Model model) {
-        Usuario usuario = (Usuario) session.getAttribute("usuario");
+        UsuarioSessao usuario = (UsuarioSessao) session.getAttribute("usuario");
         model.addAttribute("usuario", usuario);
         model.addAttribute("configuracao", configuracaoService.buscar());
         model.addAttribute("naoLidas", notificacaoService.contarNaoLidas(usuario.getId()));
@@ -155,7 +156,7 @@ public class PageController {
 
     @GetMapping("/gerente/perfil")
     public String gerentePerfil(HttpSession session, Model model) {
-        Usuario usuario = (Usuario) session.getAttribute("usuario");
+        UsuarioSessao usuario = (UsuarioSessao) session.getAttribute("usuario");
         model.addAttribute("usuario", usuario);
         model.addAttribute("naoLidas", notificacaoService.contarNaoLidas(usuario.getId()));
         return "pages/gerente/perfil";
@@ -165,7 +166,7 @@ public class PageController {
 
     @GetMapping("/supervisor/dashboard")
     public String supervisorDashboard(HttpSession session, Model model) {
-        Usuario usuario = (Usuario) session.getAttribute("usuario");
+        UsuarioSessao usuario = (UsuarioSessao) session.getAttribute("usuario");
         List<Tarefa> minhasTarefas = tarefaService.listarPorSupervisor(usuario.getId());
         model.addAttribute("usuario", usuario);
         model.addAttribute("tarefas", minhasTarefas);
@@ -176,7 +177,7 @@ public class PageController {
 
     @GetMapping("/supervisor/tarefas")
     public String supervisorTarefas(HttpSession session, Model model) {
-        Usuario usuario = (Usuario) session.getAttribute("usuario");
+        UsuarioSessao usuario = (UsuarioSessao) session.getAttribute("usuario");
         model.addAttribute("usuario", usuario);
         model.addAttribute("tarefas", tarefaService.listarPorSupervisor(usuario.getId()));
         model.addAttribute("naoLidas", notificacaoService.contarNaoLidas(usuario.getId()));
@@ -185,7 +186,7 @@ public class PageController {
 
     @GetMapping("/supervisor/notificacoes")
     public String supervisorNotificacoes(HttpSession session, Model model) {
-        Usuario usuario = (Usuario) session.getAttribute("usuario");
+        UsuarioSessao usuario = (UsuarioSessao) session.getAttribute("usuario");
         model.addAttribute("usuario", usuario);
         model.addAttribute("notificacoes", notificacaoService.listarPorDestinatario(usuario.getId()));
         model.addAttribute("naoLidas", notificacaoService.contarNaoLidas(usuario.getId()));
@@ -194,7 +195,7 @@ public class PageController {
 
     @GetMapping("/supervisor/perfil")
     public String supervisorPerfil(HttpSession session, Model model) {
-        Usuario usuario = (Usuario) session.getAttribute("usuario");
+        UsuarioSessao usuario = (UsuarioSessao) session.getAttribute("usuario");
         model.addAttribute("usuario", usuario);
         model.addAttribute("naoLidas", notificacaoService.contarNaoLidas(usuario.getId()));
         return "pages/supervisor/perfil";

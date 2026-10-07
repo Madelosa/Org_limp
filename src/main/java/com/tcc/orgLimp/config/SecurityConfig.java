@@ -1,5 +1,6 @@
 package com.tcc.orgLimp.config;
 
+import com.tcc.orgLimp.dto.UsuarioSessao;
 import com.tcc.orgLimp.entity.Usuario;
 import com.tcc.orgLimp.repository.UsuarioRepository;
 
@@ -48,7 +49,7 @@ public class SecurityConfig {
 
             // Salva o usuário na sessão
             HttpSession session = request.getSession(true);
-            session.setAttribute("usuario", usuario);
+            session.setAttribute("usuario", new UsuarioSessao(usuario));
 
             // Redirecionamento conforme o perfil
             if ("ROLE_GERENTE".equals(role)) {
