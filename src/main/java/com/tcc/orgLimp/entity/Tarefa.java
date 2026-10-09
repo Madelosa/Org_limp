@@ -40,8 +40,10 @@ public class Tarefa {
 
     private String observacao;
 
+
     @NotNull
-    private LocalDateTime criadoEm;
+    @Column(nullable = false, updatable = false)
+    private LocalDateTime criadoEm = LocalDateTime.now();
 
     public enum Status {
         pendente, iniciada, em_andamento, concluida
@@ -58,7 +60,6 @@ public class Tarefa {
         this.supervisorId = supervisorId;
         this.status = status;
         this.observacao = observacao;
-        this.criadoEm = LocalDateTime.now();
     }
 
     public Long getId() { return id; }

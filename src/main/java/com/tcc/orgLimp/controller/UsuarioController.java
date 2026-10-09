@@ -27,7 +27,7 @@ public class UsuarioController {
         return "redirect:/gerente/usuarios";
     }
 
-    @GetMapping("/usuarios/{id}/deletar")
+    @PostMapping("/usuarios/{id}/deletar")
     public String deletar(@PathVariable Long id, RedirectAttributes redirectAttributes) {
         try {
             usuarioService.deletar(id);

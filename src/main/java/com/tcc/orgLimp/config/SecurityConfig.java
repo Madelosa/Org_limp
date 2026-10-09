@@ -102,7 +102,7 @@ public class SecurityConfig {
                 .requestMatchers("/tarefas/*/status")
                     .hasRole("SUPERVISOR")
 
-                .requestMatchers("/tarefas/*/deletar")
+                .requestMatchers(HttpMethod.POST, "/tarefas/*/deletar")
                     .hasRole("GERENTE")
 
                 .anyRequest()

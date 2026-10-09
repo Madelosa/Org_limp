@@ -28,12 +28,14 @@ public class NotificacaoService {
         return notificacaoRepository.countByDestinatarioIdAndLidaFalse(destinatarioId);
     }
 
-    public void marcarComoLida(Long id) {
-        notificacaoRepository.findById(id).ifPresent(n -> {
+    public void marcarComoLida(Long id, Long destinatarioId) {
+    notificacaoRepository.findById(id).ifPresent(n -> {
+        if (destinatarioId.equals(n.getDestinatarioId())) {
             n.setLida(true);
             notificacaoRepository.save(n);
-        });
-    }
+        }
+    });
+}
 
     public void marcarTodasComoLidas(Long destinatarioId) {
         List<Notificacao> naoLidas = notificacaoRepository.findByDestinatarioIdAndLidaFalse(destinatarioId);

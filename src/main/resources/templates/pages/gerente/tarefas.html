@@ -57,9 +57,14 @@
                             <span class="badge" th:classappend="${tarefa.status.name() == 'pendente'} ? 'bg-secondary' : (${tarefa.status.name() == 'iniciada'} ? 'bg-info text-dark' : (${tarefa.status.name() == 'em_andamento'} ? 'bg-warning text-dark' : 'bg-success'))" th:text="${tarefa.status.name().replace('_', ' ')}">Status</span>
                         </td>
                         <td>
-                            <a class="btn btn-sm btn-outline-primary" th:href="@{/tarefas/{id}/deletar(id=${tarefa.id})}">
-                                <i class="bi bi-trash"></i>
-                            </a>
+                            <form th:action="@{/tarefas/{id}/deletar(id=${tarefa.id})}" method="post" class="d-inline"> 
+                                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"> 
+                                    <button type="submit" class="btn btn-sm btn-outline-primary" title="Excluir tarefa" onclick="return confirm('Tem certeza que deseja excluir esta tarefa?');">
+                                        <i class="bi bi-trash">
+
+                                        </i> 
+                                    </button> 
+                                </form>
                         </td>
                     </tr>
                 </tbody>
