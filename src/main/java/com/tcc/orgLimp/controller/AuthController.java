@@ -26,10 +26,4 @@ public class AuthController {
         return "pages/login";
     }
 
-    @GetMapping("/logout")
-    public String logout(HttpSession session) {
-        SecurityContextHolder.clearContext();
-        session.invalidate();
-        return "redirect:/login?logout";
-    }
 }
