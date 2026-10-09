@@ -18,7 +18,7 @@
 <main class="main-content">
     <section class="page-title">
         <h1>Notificações</h1>
-        <a class="btn btn-outline-primary" th:href="@{/notificacoes/ler-todas}">Marcar todas como lidas</a>
+        <form th:action="@{/notificacoes/ler-todas}" method="post" class="d-inline"> <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"> <button type="submit" class="btn btn-outline-primary"> Marcar todas como lidas </button> </form>
     </section>
 
     <div class="card">
@@ -30,7 +30,24 @@
                     <small th:text="${#temporals.format(notif.data, 'dd/MM/yyyy HH:mm')}">Data</small>
                 </div>
                 <div th:text="${notif.mensagem}">Mensagem</div>
-                <span class="badge bg-primary mt-2" th:if="${!notif.lida}">Nova</span>
+
+                <div class="mt-2" th:if="${!notif.lida}">
+                    <span class="badge bg-primary">Nova</span>
+
+                    <form th:action="@{/notificacoes/{id}/ler(id=${notif.id})}"
+                          method="post"
+                          class="d-inline ms-2">
+                        <input type="hidden"
+                               th:name="${_csrf.parameterName}"
+                               th:value="${_csrf.token}">
+
+                        <button type="submit"
+                                class="btn btn-sm btn-outline-primary">
+                            <i class="bi bi-check2"></i>
+                            Marcar como lida
+                        </button>
+                    </form>
+                </div>
             </div>
             <div class="empty-state" th:if="${#lists.isEmpty(notificacoes)}">Nenhuma notificação.</div>
         </div>

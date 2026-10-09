@@ -49,9 +49,18 @@
                             <span class="badge" th:classappend="${user.ativo} ? 'bg-success' : 'bg-secondary'" th:text="${user.ativo} ? 'Ativo' : 'Inativo'">Status</span>
                         </td>
                         <td>
-                            <a class="btn btn-sm btn-outline-primary" th:href="@{/usuarios/{id}/deletar(id=${user.id})}">
+                        <form th:action="@{/usuarios/{id}/deletar(id=${user.id})}" method="post" class="d-inline">
+                            <input type="hidden"
+                                th:name="${_csrf.parameterName}"
+                                th:value="${_csrf.token}">
+
+                            <button type="submit" class="btn btn-sm btn-outline-primary"
+                                    title="Excluir usuário"
+                                    onclick="return confirm('Tem certeza que deseja excluir este usuário?');">
                                 <i class="bi bi-trash"></i>
-                            </a>
+                            </button>
+                        </form>
+
                         </td>
                     </tr>
                 </tbody>
