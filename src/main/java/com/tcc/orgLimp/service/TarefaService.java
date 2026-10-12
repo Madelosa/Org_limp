@@ -35,9 +35,8 @@ public class TarefaService {
         return tarefaRepository.findById(id).orElse(null);
     }
 
-    public Tarefa salvar(TarefaRequest request) {
+    public Tarefa salvar(TarefaRequest request, String emailGerente) {
         boolean novaTarefa = request.getId() == null;
-
         Tarefa tarefa;
 
         if (novaTarefa) {
@@ -46,6 +45,15 @@ public class TarefaService {
             tarefa = tarefaRepository.findById(request.getId())
                     .orElseThrow(() -> new IllegalArgumentException(
                             "Tarefa não encontrada."));
+        }
+
+        Usuario gerente = usuarioService.buscarPorEmail(emailGerente);
+
+        if (gerente == null
+                || gerente.getPerfil() != Usuario.Perfil.gerente
+                || !Boolean.TRUE.equals(gerente.getAtivo())) {
+            throw new IllegalArgumentException(
+                    "Gerente autenticado não encontrado ou inativo.");
         }
 
         Usuario supervisor = usuarioService.buscarPorId(
@@ -58,6 +66,19 @@ public class TarefaService {
                     "O supervisor selecionado não existe, não está ativo ou não possui perfil de supervisor.");
         }
 
+        if (!novaTarefa) {
+            if (tarefa.getGerenteResponsavelId() == null) {
+                throw new IllegalStateException(
+                        "Esta tarefa antiga não possui gerente responsável registrado. "
+                                + "Ela precisa ser regularizada antes de ser editada.");
+            }
+
+            if (!tarefa.getGerenteResponsavelId().equals(gerente.getId())) {
+                throw new IllegalArgumentException(
+                        "Você não pode alterar uma tarefa atribuída por outro gerente.");
+            }
+        }
+
         tarefa.setTitulo(request.getTitulo());
         tarefa.setLocal(request.getLocal());
         tarefa.setData(request.getData());
@@ -68,6 +89,10 @@ public class TarefaService {
                 Tarefa.Status.valueOf(
                         request.getStatus().replace(" ", "_")));
         tarefa.setObservacao(request.getObservacao());
+
+        if (novaTarefa || tarefa.getGerenteResponsavelId() == null) {
+            tarefa.setGerenteResponsavelId(gerente.getId());
+        }
 
         Tarefa salva = tarefaRepository.save(tarefa);
 
@@ -87,6 +112,7 @@ public class TarefaService {
             String novaStatus,
             String observacao,
             Long supervisorId) {
+
         Tarefa tarefa = tarefaRepository.findById(id).orElse(null);
 
         if (tarefa == null) {
@@ -100,23 +126,27 @@ public class TarefaService {
         }
 
         Tarefa.Status statusAnterior = tarefa.getStatus();
-        Tarefa.Status novoStatus = Tarefa.Status.valueOf(novaStatus.replace(" ", "_"));
+        Tarefa.Status novoStatus = Tarefa.Status.valueOf(
+                novaStatus.replace(" ", "_"));
 
         if (statusAnterior != novoStatus) {
             tarefa.setStatus(novoStatus);
+
             if (observacao != null) {
                 tarefa.setObservacao(observacao);
             }
+
             Tarefa atualizada = tarefaRepository.save(tarefa);
 
-            // Notificar gerente sobre mudança de status
-            Usuario gerente = usuarioService.listarTodos().stream()
-                    .filter(u -> u.getPerfil() == Usuario.Perfil.gerente)
-                    .findFirst().orElse(null);
-            if (gerente != null) {
-                notificacaoService.criar(gerente.getId(), "Tarefa atualizada",
-                        "A tarefa \"" + tarefa.getTitulo() + "\" mudou de \"" + statusAnterior + "\" para \""
-                                + novoStatus + "\".",
+            Long gerenteId = tarefa.getGerenteResponsavelId();
+
+            if (gerenteId != null) {
+                notificacaoService.criar(
+                        gerenteId,
+                        "Tarefa atualizada",
+                        "A tarefa \"" + tarefa.getTitulo()
+                                + "\" mudou de \"" + statusAnterior
+                                + "\" para \"" + novoStatus + "\".",
                         "status");
             }
 

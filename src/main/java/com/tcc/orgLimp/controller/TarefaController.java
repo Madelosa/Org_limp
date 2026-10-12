@@ -1,5 +1,6 @@
 package com.tcc.orgLimp.controller;
 
+import org.springframework.security.core.Authentication;
 import org.springframework.validation.BindingResult;
 import com.tcc.orgLimp.dto.UsuarioSessao;
 import jakarta.servlet.http.HttpSession;
@@ -23,6 +24,7 @@ public class TarefaController {
     public String salvar(
             @Valid @ModelAttribute TarefaRequest request,
             BindingResult bindingResult,
+            Authentication authentication,
             RedirectAttributes redirectAttributes) {
 
         if (bindingResult.hasErrors()) {
@@ -38,7 +40,8 @@ public class TarefaController {
         }
 
         try {
-            tarefaService.salvar(request);
+            tarefaService.salvar(request, authentication.getName());
+
             redirectAttributes.addFlashAttribute(
                     "success", "Tarefa salva com sucesso.");
         } catch (Exception e) {
