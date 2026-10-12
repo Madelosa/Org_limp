@@ -1,5 +1,6 @@
 package com.tcc.orgLimp.service;
 
+import com.tcc.orgLimp.repository.TarefaRepository;
 import com.tcc.orgLimp.dto.UsuarioRequest;
 import com.tcc.orgLimp.entity.Usuario;
 import com.tcc.orgLimp.repository.UsuarioRepository;
@@ -13,9 +14,15 @@ public class UsuarioService {
 
     private final UsuarioRepository usuarioRepository;
     private final PasswordEncoder passwordEncoder;
+    private final TarefaRepository tarefaRepository;
 
-    public UsuarioService(UsuarioRepository usuarioRepository, PasswordEncoder passwordEncoder) {
+    public UsuarioService(
+            UsuarioRepository usuarioRepository,
+            TarefaRepository tarefaRepository,
+            PasswordEncoder passwordEncoder) {
+
         this.usuarioRepository = usuarioRepository;
+        this.tarefaRepository = tarefaRepository;
         this.passwordEncoder = passwordEncoder;
     }
 
@@ -33,27 +40,74 @@ public class UsuarioService {
         return usuarioRepository.findById(id).orElse(null);
     }
 
+    public Usuario buscarPorEmail(String email) {
+        return usuarioRepository.findByEmail(email).orElse(null);
+    }
+
     public Usuario salvar(UsuarioRequest request) {
-        Usuario usuario = new Usuario();
-        usuario.setId(request.getId());
+        Usuario usuario;
+
+        if (request.getId() == null) {
+            usuario = new Usuario();
+        } else {
+            usuario = usuarioRepository.findById(request.getId())
+                    .orElseThrow(() -> new IllegalArgumentException(
+                            "Usuário não encontrado."));
+        }
+
         usuario.setNome(request.getNome());
         usuario.setEmail(request.getEmail());
         usuario.setPerfil(Usuario.Perfil.valueOf(request.getPerfil()));
-        usuario.setAtivo(request.getAtivo());
 
-        if (request.getSenha() != null && !request.getSenha().isBlank()) {
+        if (request.getAtivo() != null) {
+            usuario.setAtivo(request.getAtivo());
+        }
+
+        if (request.getSenha() != null
+                && !request.getSenha().isBlank()) {
             usuario.setSenha(passwordEncoder.encode(request.getSenha()));
-        } else if (request.getId() != null) {
-            Usuario existente = usuarioRepository.findById(request.getId()).orElse(null);
-            if (existente != null) {
-                usuario.setSenha(existente.getSenha());
-            }
         }
 
         return usuarioRepository.save(usuario);
     }
 
-    public void deletar(Long id) {
-        usuarioRepository.deleteById(id);
+    public void deletarUsuario(Long id, String emailUsuarioLogado) {
+        Usuario usuario = usuarioRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException(
+                        "Usuário não encontrado."));
+
+        Usuario usuarioLogado = usuarioRepository.findByEmail(emailUsuarioLogado)
+                .orElseThrow(() -> new IllegalStateException(
+                        "Não foi possível identificar o usuário logado."));
+
+        if (usuario.getId().equals(usuarioLogado.getId())) {
+            throw new IllegalStateException(
+                    "Você não pode excluir sua própria conta por esta página. Acesse seu perfil.");
+        }
+
+        validarExclusao(usuario);
+        usuarioRepository.delete(usuario);
+    }
+
+    public void excluirPropriaConta(String emailUsuarioLogado) {
+        Usuario usuario = usuarioRepository.findByEmail(emailUsuarioLogado)
+                .orElseThrow(() -> new IllegalStateException(
+                        "Não foi possível identificar sua conta."));
+
+        if (usuario.getPerfil() != Usuario.Perfil.gerente) {
+            throw new IllegalStateException(
+                    "Somente um gerente pode excluir a própria conta por esta página.");
+        }
+
+        validarExclusao(usuario);
+        usuarioRepository.delete(usuario);
+    }
+
+    private void validarExclusao(Usuario usuario) {
+        if (usuario.getPerfil() == Usuario.Perfil.supervisor
+                && !tarefaRepository.findBySupervisorId(usuario.getId()).isEmpty()) {
+            throw new IllegalStateException(
+                    "Não é possível excluir este supervisor, pois existem tarefas vinculadas a ele.");
+        }
     }
 }
