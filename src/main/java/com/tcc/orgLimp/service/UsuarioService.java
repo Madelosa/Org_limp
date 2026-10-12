@@ -106,8 +106,16 @@ public class UsuarioService {
     private void validarExclusao(Usuario usuario) {
         if (usuario.getPerfil() == Usuario.Perfil.supervisor
                 && !tarefaRepository.findBySupervisorId(usuario.getId()).isEmpty()) {
+
             throw new IllegalStateException(
                     "Não é possível excluir este supervisor, pois existem tarefas vinculadas a ele.");
+        }
+
+        if (usuario.getPerfil() == Usuario.Perfil.gerente
+                && !tarefaRepository.findByGerenteResponsavelId(usuario.getId()).isEmpty()) {
+
+            throw new IllegalStateException(
+                    "Não é possível excluir este gerente, pois existem tarefas sob sua responsabilidade.");
         }
     }
 }

@@ -6,6 +6,7 @@ import java.util.List;
 
 public interface TarefaRepository extends JpaRepository<Tarefa, Long> {
     List<Tarefa> findBySupervisorId(Long supervisorId);
+    List<Tarefa> findByGerenteResponsavelId(Long gerenteResponsavelId);
     List<Tarefa> findByStatus(Tarefa.Status status);
     List<Tarefa> findBySupervisorIdAndStatus(Long supervisorId, Tarefa.Status status);
 }
