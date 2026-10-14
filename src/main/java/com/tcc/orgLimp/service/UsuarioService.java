@@ -1,6 +1,8 @@
 package com.tcc.orgLimp.service;
 
+import com.tcc.orgLimp.dto.AtualizarPerfilSupervisorRequest;
 import com.tcc.orgLimp.repository.TarefaRepository;
+import com.tcc.orgLimp.dto.AlterarSenhaRequest;
 import com.tcc.orgLimp.dto.UsuarioRequest;
 import com.tcc.orgLimp.entity.Usuario;
 import com.tcc.orgLimp.repository.UsuarioRepository;
@@ -55,6 +57,16 @@ public class UsuarioService {
                             "Usuário não encontrado."));
         }
 
+        Usuario usuarioComMesmoEmail = usuarioRepository
+                .findByEmail(request.getEmail())
+                .orElse(null);
+
+        if (usuarioComMesmoEmail != null
+                && !usuarioComMesmoEmail.getId().equals(usuario.getId())) {
+            throw new IllegalArgumentException(
+                    "Este e-mail já está cadastrado. Informe outro endereço de e-mail.");
+        }
+
         usuario.setNome(request.getNome());
         usuario.setEmail(request.getEmail());
         usuario.setPerfil(Usuario.Perfil.valueOf(request.getPerfil()));
@@ -63,12 +75,73 @@ public class UsuarioService {
             usuario.setAtivo(request.getAtivo());
         }
 
-        if (request.getSenha() != null
-                && !request.getSenha().isBlank()) {
-            usuario.setSenha(passwordEncoder.encode(request.getSenha()));
+        if (request.getSenha() == null
+                || request.getSenha().isBlank()) {
+            throw new IllegalArgumentException(
+                    "A senha é obrigatória para cadastrar ou editar um usuário.");
         }
 
+        usuario.setSenha(passwordEncoder.encode(request.getSenha()));
+
         return usuarioRepository.save(usuario);
+    }
+
+    public void alterarSenha(
+            String emailUsuarioLogado,
+            AlterarSenhaRequest request) {
+
+        Usuario usuario = usuarioRepository.findByEmail(emailUsuarioLogado)
+                .orElseThrow(() -> new IllegalStateException(
+                        "Não foi possível identificar sua conta."));
+
+        if (!passwordEncoder.matches(
+                request.getSenhaAtual(),
+                usuario.getSenha())) {
+            throw new IllegalArgumentException(
+                    "A senha atual está incorreta.");
+        }
+
+        if (passwordEncoder.matches(
+                request.getNovaSenha(),
+                usuario.getSenha())) {
+            throw new IllegalArgumentException(
+                    "A nova senha deve ser diferente da senha atual.");
+        }
+
+        usuario.setSenha(
+                passwordEncoder.encode(request.getNovaSenha()));
+
+        usuarioRepository.save(usuario);
+    }
+
+    public void atualizarPerfilProprio(
+            String emailUsuarioLogado,
+            AtualizarPerfilSupervisorRequest request) {
+
+        Usuario usuario = usuarioRepository.findByEmail(emailUsuarioLogado)
+                .orElseThrow(() -> new IllegalStateException(
+                        "Não foi possível identificar sua conta."));
+
+        if (usuario.getPerfil() != Usuario.Perfil.supervisor
+                && usuario.getPerfil() != Usuario.Perfil.gerente) {
+            throw new IllegalStateException(
+                    "Perfil não autorizado para esta operação.");
+        }
+
+        Usuario usuarioComMesmoEmail = usuarioRepository
+                .findByEmail(request.getEmail())
+                .orElse(null);
+
+        if (usuarioComMesmoEmail != null
+                && !usuarioComMesmoEmail.getId().equals(usuario.getId())) {
+            throw new IllegalArgumentException(
+                    "Este e-mail já está cadastrado. Informe outro endereço de e-mail.");
+        }
+
+        usuario.setNome(request.getNome());
+        usuario.setEmail(request.getEmail());
+
+        usuarioRepository.save(usuario);
     }
 
     public void deletarUsuario(Long id, String emailUsuarioLogado) {
