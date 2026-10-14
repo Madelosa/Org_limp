@@ -119,9 +119,13 @@
                             <div class="mb-3">
                                 <label for="userSenha" class="form-label">Senha</label>
                                 <input id="userSenha" name="senha" type="password" class="form-control"
-                                    autocomplete="new-password">
+                                    autocomplete="new-password" minlength="8"
+                                    pattern="(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9]).{8,}"
+                                    title="A senha deve ter pelo menos 8 caracteres, incluindo uma letra maiúscula, uma letra minúscula e um número."
+                                    required>
+
                                 <div class="form-text" id="senhaAjuda">
-                                    Informe a senha do novo usuário.
+                                    Mínimo de 8 caracteres, com maiúscula, minúscula e número.
                                 </div>
                             </div>
 
@@ -200,9 +204,9 @@
             document.getElementById('userModalTitle').textContent = 'Editar usuário';
             document.getElementById('userSaveText').textContent = 'Salvar alterações';
             document.getElementById('senhaAjuda').textContent =
-                'Deixe em branco para manter a senha atual.';
+                'Informe uma nova senha com pelo menos 8 caracteres, incluindo maiúscula, minúscula e número.';
 
-            document.getElementById('userSenha').required = false;
+            document.getElementById('userSenha').required = true;
         }
 
         document.getElementById('activeCheckbox').addEventListener('change', function () {
